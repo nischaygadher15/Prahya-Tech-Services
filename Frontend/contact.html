@@ -1,0 +1,344 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>𝐂𝐨𝐧𝐭𝐚𝐜𝐭 𝐏𝐚𝐠𝐞</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="images/icon/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="images/icon/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="images/icon/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="images/icon/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="images/icon/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="images/icon/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="images/icon/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="images/icon/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/icon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="images/icon/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/icon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="images/icon/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/icon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="msapplication-TileColor" content="images/icon/#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="images/icon/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="images/icon/#ffffff" />
+    3
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="images/headerimage.jpg" alt="our main logo" class="logo" />
+
+      <nav class="navbar">
+        <ul class="navbar-lists">
+          <li><a href="index.html" class="navbar-link home-link">Home</a></li>
+          <li><a href="about.html" class="navbar-link about-link">About</a></li>
+          <li>
+            <a href="service.html" class="navbar-link service-link">Service</a>
+          </li>
+          <li>
+            <a href="review.html" class="navbar-link portfolio-link">Review</a>
+          </li>
+          <li>
+            <a href="contact.html" class="navbar-link contact-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="mobile-navbar-btn">
+        <ion-icon name="menu-outline" class="mobile-nav-icon"></ion-icon>
+        <ion-icon name="close-outline" class="mobile-nav-icon"></ion-icon>
+      </div>
+    </header>
+
+    <!-- our contact section started -->
+
+    <section class="section section-contact">
+      <div class="container">
+        <h2 class="common-heading">Contact Us</h2>
+      </div>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58780.67481982173!2d72.55384315820311!3d22.957879700000017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e89489e067edb%3A0xafa78c73ff253261!2sPTS%20-%20Best%20Web%20Design%20and%20Website%20Development%2C%20Graphic%20Design%2C%20SEO%2C%20Data%20Scraping%2C%20SMM%20Services%20company%20in%20Ahmedabad%2C%20India!5e0!3m2!1sen!2sin!4v1667310827942!5m2!1sen!2sin"
+        width="100%"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+
+      <div class="section-contact-main contact-container">
+        <form onsubmit="handleSubmit(event)">
+          <div class="grid grid-two-column">
+            <div>
+              <label for="username"></label>
+              <input
+                type="text"
+                name="username"
+                placeholder="username"
+                id="username"
+                autocomplete="off"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="email"></label>
+              <input
+                type="email"
+                name="email"
+                placeholder="demo@gmail.com"
+                id="email"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="subject"></label>
+            <input
+              type="text"
+              name="subject"
+              placeholder="subject"
+              id="subject"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div>
+            <label for="textarea"></label>
+            <textarea
+              name="textarea"
+              id="textarea"
+              cols="30"
+              rows="10"
+              placeholder="message"
+              autocomplete="off"
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <input
+              type="submit"
+              name="submit"
+              id="submit"
+              class="btn"
+              value="Send Message"
+            />
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- our footer section start -->
+
+    <footer class="section-footer section">
+      <div class="container grid grid-four-column">
+        <div class="f-about">
+          <h3>About</h3>
+          <p>
+            We offers best Web Design Services, Website Design, Web Development,
+            SEO Marketing Services,Social Media Marketing, PSD to HTML.
+          </p>
+        </div>
+        <!-- end of about -->
+        <div class="f-links">
+          <h3>Links</h3>
+          <ul>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Home</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="about.html">About</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="service.html">Services</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Company Detail</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <!-- end of links -->
+
+        <div class="f-services">
+          <h3>Services</h3>
+          <ul>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Web Design</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Web Development</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Grahpic Design</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">SEO</a>
+            </li>
+            <li>
+              <span><ion-icon name="arrow-forward-outline"></ion-icon></span
+              ><a href="#">Social Media Marketing</a>
+            </li>
+          </ul>
+        </div>
+        <!-- end of services -->
+
+        <div class="f-address">
+          <h3>Have a Questions?</h3>
+          <address>
+            <div>
+              <p>
+                <span><ion-icon name="location-outline"></ion-icon></span>
+                <a href="https://goo.gl/maps/gjLPpzR4tXgwkCjs7" target="_blank">
+                  Ahmedabad, India
+                </a>
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <span><ion-icon name="call-outline"></ion-icon></span>
+                <a href="tel:+919106740792">+91 9106740792 </a>
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <span><ion-icon name="mail-outline"></ion-icon></span>
+                <a href="mailto:prahyatechservices@gmail.com"
+                  >prahyatechservices@gmail.com</a
+                >
+              </p>
+            </div>
+          </address>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="f-social-icons">
+          <a
+            href="https://www.instagram.com/prahyatechservices/"
+            target="_blank"
+          >
+            <ion-icon class="icons" name="logo-instagram"></ion-icon>
+          </a>
+
+          <a href="https://www.facebook.com/prahyatechservices" target="_blank">
+            <ion-icon class="icons" name="logo-facebook"></ion-icon>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/ayush-awasthi-0921b523b/"
+            target="_blank"
+          >
+            <ion-icon class="icons" name="logo-linkedin"></ion-icon>
+          </a>
+        </div>
+
+        <div class="f-credits">
+          <p>
+            Copyright @2022 All Rights Reserved | This Website is made by AYUSH
+            Awasthi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- our javascript  -->
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script defer src="index.js"></script>
+  </body>
+</html>

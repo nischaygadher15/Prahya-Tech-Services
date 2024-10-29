@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>𝐏𝐑𝐀𝐇𝐘𝐀 𝐓𝐄𝐂𝐇 𝐒𝐄𝐑𝐕𝐈𝐂𝐄𝐒</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/Frontend/images/icon/apple-icon-57x57.png"
+    />
+    <link rel="stylesheet" href="./output.css" />
+  </head>
+  <body>
+    <header class="flex justify-center shadow">
+      <div class="container h-24 w-full flex justify-between">
+        <div class="w-1/6 flex flex-wrap content-center">
+          <img src="/Frontend/images/Logo.jpg" alt="PTS LOGO" class="h-10" />
+        </div>
+        <nav
+          class="flex flex-col justify-center cursor-pointer relative"
+          onclick="handleUserDD()"
+          for=""
+        >
+          <div class="border shadow p-2 rounded-md flex">
+            <p
+              class="uppercase text-lg font-bold align-middle mr-2 flex flex-wrap content-center"
+            >
+              User Name
+            </p>
+            <img
+              src="../images/users.jpg"
+              alt="User Photo"
+              class="w-12 rounded-full border-2 p-1 border-blue-500"
+            />
+          </div>
+          <div
+            class="w-full hidden flex-col border-1 shadow -z-10 bg-white rounded mt-3 py-2 absolute top-0 left-0"
+            id="userDD"
+          >
+            <a href="" class="px-3 py-1 mb-1 hover:bg-slate-400">Profile</a>
+            <a href="" class="px-3 py-1 mb-1 hover:bg-slate-400">Sign Out</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <script src="./AdminScript.js"></script>
+  </body>
+</html>
