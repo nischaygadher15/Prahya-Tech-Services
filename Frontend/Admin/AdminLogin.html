@@ -17,28 +17,29 @@
   </head>
   <body>
     <div
-      class="w-full flex flex-wrap content-center h-screen"
+      class="w-full h-screen flex flex-wrap content-center"
       style="background-color: #002428"
     >
       <!--------------------------- Company Text Logo ---------------------------->
       <div
-        class="w-1/2 h-5/6 px-4 flex flex-col flex-wrap justify-center content-center border-r-2"
+        class="w-full h-auto sm:w-1/2 sm:h-5/6 p-6 sm:py-0 flex gap-4 justify-center content-center border-b-2 sm:border-b-0 sm:border-r-2"
       >
-        <div class="flex mb-14">
+        <div class="w-1/4 flex flex-wrap justify-center content-center">
           <img
             src="../images/icon/apple-icon-114x114.png"
             alt="PTS Company Poster"
-            class="mr-5"
+            class="mb-0 w-full"
           />
-          <span class="flex flex-wrap content-center text-4xl text-white"
-            >PRAHYA TECH SERVICES</span
-          >
         </div>
+        <span
+          class="text-center flex flex-wrap justify-center content-center text-4xl text-white"
+          >PRAHYA TECH SERVICES</span
+        >
       </div>
 
       <!--------------------------- Login Form ---------------------------->
       <div
-        class="w-1/2 h-5/6 px-4 flex flex-wrap flex-col justify-center content-center"
+        class="w-full sm:w-1/2 h-2/3 sm:h-5/6 p-6 sm:py-0 flex flex-wrap flex-col justify-center content-center"
         id="loginForm"
       >
         <p class="mb-7 text-4xl text-center text-white">Welcome</p>
@@ -46,51 +47,57 @@
           PLEASE LOGIN TO ADMIN DASHBOARD
         </p>
 
-        <form
-          class="w-2/3 mt-8 flex flex-wrap flex-col"
-          onsubmit="handleLoginSub(event)"
-        >
-          <div class="mb-3">
-            <input
-              type="text"
-              name="username"
-              class="w-full p-3 rounded outline-none"
-              placeholder="USERNAME"
-            />
-            <span class="hidden text-red-500">Username is already exist</span>
-          </div>
-          <div class="mb-10">
-            <div class="relative">
+        <div class="w-full flex justify-center">
+          <form
+            class="w-full md:w-5/6 lg:w-2/3 mt-8 flex flex-wrap flex-col"
+            onsubmit="handleLoginSub(event)"
+          >
+            <!-- USERNAME -->
+            <div class="mb-3">
               <input
-                type="password"
-                name="password"
+                type="text"
+                name="username"
                 class="w-full p-3 rounded outline-none"
-                placeholder="PASSWORD"
-                id="pwd"
+                placeholder="USERNAME"
               />
-              <div class="absolute right-3" style="top: 25%">
-                <i
-                  class="fa-solid fa-eye text-xl cursor-pointer"
-                  id="eye1"
-                  onclick="handleeye(event)"
-                ></i>
-                <i
-                  class="fa-solid fa-eye-slash text-xl cursor-pointer"
-                  id="eye2"
-                  onclick="handleeye(event)"
-                  style="display: none !important"
-                ></i>
-              </div>
               <span class="hidden text-red-500">Username is already exist</span>
             </div>
-          </div>
-          <input
-            type="submit"
-            value="LOGIN"
-            class="w-3/4 mb-10 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
-          />
-        </form>
 
+            <!-- PASSWORD -->
+            <div class="mb-10">
+              <div class="relative">
+                <input
+                  type="password"
+                  name="password"
+                  class="w-full p-3 rounded outline-none"
+                  placeholder="PASSWORD"
+                  id="pwd"
+                />
+                <div class="absolute right-3" style="top: 25%">
+                  <i
+                    class="fa-solid fa-eye text-xl cursor-pointer"
+                    id="eye1"
+                    onclick="handleeye(event)"
+                  ></i>
+                  <i
+                    class="fa-solid fa-eye-slash text-xl cursor-pointer"
+                    id="eye2"
+                    onclick="handleeye(event)"
+                    style="display: none !important"
+                  ></i>
+                </div>
+                <span class="hidden text-red-500"
+                  >Username is already exist</span
+                >
+              </div>
+            </div>
+            <input
+              type="submit"
+              value="LOGIN"
+              class="w-3/4 mb-10 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
+            />
+          </form>
+        </div>
         <p class="text-lg text-center text-white">
           Don't have account?
           <button
@@ -106,7 +113,7 @@
 
       <!--------------------------- Registration Form ---------------------------->
       <div
-        class="w-1/2 h-5/6 px-4 hidden flex-wrap flex-col justify-center content-center"
+        class="w-full sm:w-1/2 sm:h-5/6 p-6 sm:py-0 hidden flex-wrap flex-col justify-center content-center"
         id="regForm"
       >
         <p class="mb-5 text-4xl text-center text-white">Welcome</p>
@@ -114,82 +121,84 @@
           PLEASE REGISTER TO ADMIN DASHBOARD
         </p>
 
-        <form
-          class="w-2/3 mt-8 flex flex-wrap flex-col"
-          onsubmit="handleRegSub(event)"
-        >
-          <!-- USERNAME -->
-          <div class="mb-3">
+        <div class="w-full flex justify-center">
+          <form
+            class="w-full md:w-5/6 lg:w-2/3 mt-8 flex flex-wrap flex-col"
+            onsubmit="handleRegSub(event)"
+          >
+            <!-- USERNAME -->
+            <div class="mb-3">
+              <input
+                type="text"
+                name="username"
+                class="w-full p-3 mb-1 rounded outline-none"
+                placeholder="USERNAME"
+              />
+              <span class="hidden text-red-500">Username is already exist</span>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="mb-3">
+              <div class="relative">
+                <input
+                  type="password"
+                  name="password"
+                  class="w-full p-3 rounded outline-none"
+                  placeholder="PASSWORD"
+                  id="pwd2"
+                />
+                <div class="absolute right-3" style="top: 28%">
+                  <i
+                    class="fa-solid fa-eye text-xl cursor-pointer"
+                    id="eye3"
+                    onclick="handleeye(event)"
+                  ></i>
+                  <i
+                    class="fa-solid fa-eye-slash text-xl cursor-pointer"
+                    id="eye4"
+                    onclick="handleeye(event)"
+                    style="display: none !important"
+                  ></i>
+                </div>
+              </div>
+              <span class="hidden text-red-500">Username is already exist</span>
+            </div>
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="mb-8">
+              <div class="relative">
+                <input
+                  type="password"
+                  name="cpassword"
+                  class="w-full p-3 rounded outline-none"
+                  placeholder="CONFIRM PASSWORD"
+                  id="cpwdBox"
+                />
+                <div class="absolute right-3" style="top: 28%">
+                  <i
+                    class="fa-solid fa-eye text-xl cursor-pointer"
+                    id="ceye1"
+                    onclick="handleCeye(event)"
+                  ></i>
+                  <i
+                    class="fa-solid fa-eye-slash text-xl cursor-pointer"
+                    id="ceye2"
+                    onclick="handleCeye(event)"
+                    style="display: none !important"
+                  ></i>
+                </div>
+              </div>
+              <span class="hidden text-red-500">Username is already exist</span>
+            </div>
+
+            <!-- LOGIN/SUBMIT BUTTONS -->
             <input
-              type="text"
-              name="username"
-              class="w-full p-3 mb-1 rounded outline-none"
-              placeholder="USERNAME"
+              type="submit"
+              value="REGISTER"
+              class="w-3/4 mb-6 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
             />
-            <span class="hidden text-red-500">Username is already exist</span>
-          </div>
-
-          <!-- PASSWORD -->
-          <div class="mb-3">
-            <div class="relative">
-              <input
-                type="password"
-                name="cpassword"
-                class="w-full p-3 rounded outline-none"
-                placeholder="PASSWORD"
-                id="pwd"
-              />
-              <div class="absolute right-3" style="top: 28%">
-                <i
-                  class="fa-solid fa-eye text-xl cursor-pointer"
-                  id="eye1"
-                  onclick="handleeye(event)"
-                ></i>
-                <i
-                  class="fa-solid fa-eye-slash text-xl cursor-pointer"
-                  id="eye2"
-                  onclick="handleeye(event)"
-                  style="display: none !important"
-                ></i>
-              </div>
-            </div>
-            <span class="hidden text-red-500">Username is already exist</span>
-          </div>
-
-          <!-- CONFIRM PASSWORD -->
-          <div class="mb-8">
-            <div class="relative">
-              <input
-                type="password"
-                name="cpassword"
-                class="w-full p-3 rounded outline-none"
-                placeholder="CONFIRM PASSWORD"
-                id="cpwdBox"
-              />
-              <div class="absolute right-3" style="top: 28%">
-                <i
-                  class="fa-solid fa-eye text-xl cursor-pointer"
-                  id="ceye1"
-                  onclick="handleCeye(event)"
-                ></i>
-                <i
-                  class="fa-solid fa-eye-slash text-xl cursor-pointer"
-                  id="ceye2"
-                  onclick="handleCeye(event)"
-                  style="display: none !important"
-                ></i>
-              </div>
-            </div>
-            <span class="hidden text-red-500">Username is already exist</span>
-          </div>
-
-          <!-- LOGIN/SUBMIT BUTTONS -->
-          <input
-            type="submit"
-            value="REGISTER"
-            class="w-3/4 mb-6 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
-          />
-        </form>
+          </form>
+        </div>
 
         <p class="text-lg text-center text-white">
           Already have an account?

@@ -11,21 +11,33 @@ let handleUserDD = () => {
 let e1 = document.getElementById("eye1");
 let e2 = document.getElementById("eye2");
 let pwdBox = document.getElementById("pwd");
+let pwdBox2 = document.getElementById("pwd2");
 
 let handleeye = (event) => {
   if (event.target.id == "eye1") {
     e1.style.display = "none";
     e2.style.display = "block";
     pwdBox.type = "text";
-  } else {
+  } else if (event.target.id == "eye2") {
     e1.style.display = "block";
     e2.style.display = "none";
     pwdBox.type = "password";
+  }
+  if (event.target.id == "eye3") {
+    e3.style.display = "none";
+    e4.style.display = "block";
+    pwdBox2.type = "text";
+  } else {
+    e3.style.display = "block";
+    e4.style.display = "none";
+    pwdBox2.type = "password";
   }
 };
 
 //Login Form Password Box Eye
 
+let e3 = document.getElementById("eye3");
+let e4 = document.getElementById("eye4");
 let ce1 = document.getElementById("ceye1");
 let ce2 = document.getElementById("ceye2");
 let cpwdBox = document.getElementById("cpwdBox");
