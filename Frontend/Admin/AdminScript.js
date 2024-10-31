@@ -2,9 +2,24 @@
 
 let userDD = document.getElementById("userDD");
 
+let ddFlag = false;
 let handleUserDD = () => {
-  userDD.classList.toggle("showDD");
+  ddFlag = !ddFlag;
+  if (ddFlag) {
+    userDD.classList.remove("hidden");
+    userDD.classList.add("flex");
+    userDD.classList.add("top-1/2");
+  } else {
+    userDD.classList.add("hidden");
+    userDD.classList.remove("flex");
+  }
 };
+
+let leave = () => {
+  console.log("Mouse Leaved.");
+};
+
+document.getElementById("userDrop").addEventListener("click", handleUserDD);
 
 //Login Form Password Box Eye
 
@@ -81,3 +96,33 @@ let handleLoginSub = (event) => {
 let handleRegSub = (event) => {
   //validation
 };
+
+//Admin Taable Building
+
+let makeTable = () => {
+  let code = ``;
+  for (let i = 1; i <= 20; i++) {
+    code += `
+                <tr>
+                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">${i}</td>
+                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+                  ${new Date(Date.now() + i * 100000000).toLocaleString()}
+                </td>
+                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+                  ayushawasthi@gmail.com
+                </td>
+                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+                  Contact me
+                </td>
+                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+                  Hi this is Ayush from PTS Ltd. I am looking for Website
+                  Designing Service, if you are available then i would like talk
+                  further about that.
+                </td>
+              </tr>
+  `;
+  }
+  document.getElementById("rows").innerHTML = code;
+};
+
+window.onload = makeTable;

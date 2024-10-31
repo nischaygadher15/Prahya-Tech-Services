@@ -19,8 +19,7 @@
         </div>
         <nav
           class="flex flex-col justify-center cursor-pointer relative"
-          onclick="handleUserDD()"
-          for=""
+          id="userDrop"
         >
           <div class="border shadow p-2 rounded-md flex">
             <p
@@ -35,15 +34,56 @@
             />
           </div>
           <div
-            class="w-full hidden flex-col border-1 shadow -z-10 bg-white rounded mt-3 py-2 absolute top-0 left-0"
+            class="w-full hidden flex-col border-1 shadow z-10 bg-slate-200 rounded mt-3 py-2 absolute top-3/4 left-0"
             id="userDD"
           >
-            <a href="" class="px-3 py-1 mb-1 hover:bg-slate-400">Profile</a>
-            <a href="" class="px-3 py-1 mb-1 hover:bg-slate-400">Sign Out</a>
+            <a href="#" class="px-3 py-1 mb-1 hover:bg-slate-400">Profile</a>
+            <a href="#" class="px-3 py-1 mb-1 hover:bg-slate-400">Sign Out</a>
           </div>
         </nav>
       </div>
     </header>
+
+    <main>
+      <section class="flex justify-center">
+        <div class="container">
+          <table class="w-full table-fixed border border-collapse">
+            <caption class="font-bold text-3xl p-8">
+              CONTACT US FORM DATA
+            </caption>
+            <thead>
+              <tr>
+                <th class="p-3 border border-slate-600">NO.</th>
+                <th class="p-3 w-1/6 border border-slate-600">DATE</th>
+                <th class="p-3 w-1/5 border border-slate-600">EMAIL</th>
+                <th class="p-3 w-1/6 border border-slate-600">SUBJECT</th>
+                <th class="p-3 w-2/5 border border-slate-600">MESSAGE</th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <!-- <tr>
+                <td class="p-3 text-center w-1/6 border border-slate-600">1</td>
+                <td class="p-3 text-center w-1/6 border border-slate-600">
+                  31/10/2024 04:10PM
+                </td>
+                <td class="p-3 text-center w-1/6 border border-slate-600">
+                  ayushawasthi@gmail.com
+                </td>
+                <td class="p-3 text-center w-1/6 border border-slate-600">
+                  Contact me
+                </td>
+                <td class="p-3 text-center w-1/6 border border-slate-600">
+                  Hi this is Ayush from PTS Ltd. I am looking for Website
+                  Designing Service, if you are available then i would like talk
+                  further about that.
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
     <script src="./AdminScript.js"></script>
   </body>
 </html>
