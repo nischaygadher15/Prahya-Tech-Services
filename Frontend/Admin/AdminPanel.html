@@ -10,22 +10,30 @@
       href="/Frontend/images/icon/apple-icon-57x57.png"
     />
     <link rel="stylesheet" href="./output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
   </head>
-  <body>
-    <header class="flex justify-center shadow">
-      <div class="container h-24 w-full flex justify-between">
-        <div class="w-1/6 flex flex-wrap content-center">
+  <body class="relative">
+    <header
+      class="flex justify-center shadow"
+      style="background-color: #002428"
+    >
+      <div class="container h-24 px-4 sm:p-0 flex justify-between">
+        <div class="w-2/5 sm:w-1/6 flex flex-wrap content-center">
           <img src="/Frontend/images/Logo.jpg" alt="PTS LOGO" class="h-10" />
         </div>
         <nav
           class="flex flex-col justify-center cursor-pointer relative"
           id="userDrop"
         >
-          <div class="border shadow p-2 rounded-md flex">
+          <!-- User Dropdown -->
+          <div class="border shadow p-2 rounded-md flex bg-white">
             <p
               class="uppercase text-lg font-bold align-middle mr-2 flex flex-wrap content-center"
             >
-              User Name
+              User
             </p>
             <img
               src="../images/users.jpg"
@@ -42,48 +50,92 @@
           </div>
         </nav>
       </div>
+
+      <!-- User Profile Model -->
+      <div
+        class="hidden flex-wrap justify-center content-center fixed top-0 left-0 w-full h-screen z-20"
+        style="background-color: rgba(0, 0, 0, 0.3)"
+        id="profileModel"
+      >
+        <div class="w-1/3 p-8 rounded-md bg-white relative">
+          <label
+            class="absolute top-4 right-4 cursor-pointer w-6 h-6 flex flex-wrap justify-center content-center rounded-full p-2 bg-red-500 text-white hover:text-black hover:border-2 hover:border-red-700 hover:bg-white"
+            for="closeBtn"
+            onclick="closeModel()"
+          >
+            <i class="fa-solid fa-xmark" id="closeBtn"></i>
+          </label>
+          <p class="text-center underline underline-offset-4 text-2xl mb-8">
+            PROFILE
+          </p>
+          <table class="table-fixed w-full border-collapse">
+            <tbody>
+              <tr>
+                <td class="p-2 font-bold w-1/3 border border-black">
+                  User Name
+                </td>
+                <td class="p-2 w-2/3 border border-black">Ayush Awashi</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold w-1/3 border border-black">Email</td>
+                <td class="p-2 w-2/3 border border-black">
+                  ayushawasthi@ gmail.com
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold w-1/3 border border-black">Role</td>
+                <td class="p-2 w-2/3 border border-black">Admin</td>
+              </tr>
+              <tr>
+                <td class="p-2 font-bold w-1/3 border border-black">
+                  Password
+                </td>
+                <td class="p-2 w-2/3 border border-black">********</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </header>
 
     <main>
-      <section class="flex justify-center">
-        <div class="container">
-          <table class="w-full table-fixed border border-collapse">
-            <caption class="font-bold text-3xl p-8">
-              CONTACT US FORM DATA
-            </caption>
+      <section class="flex flex-col flex-wrap justify-center content-center">
+        <p class="font-bold text-center text-3xl p-8">CONTACT US FORM DATA</p>
+        <div class="container overflow-x-scroll sm:overflow-hidden">
+          <table
+            class="w-full table-fixed border border-collapse"
+            style="min-width: 640px"
+          >
             <thead>
               <tr>
-                <th class="p-3 border border-slate-600">NO.</th>
-                <th class="p-3 w-1/6 border border-slate-600">DATE</th>
-                <th class="p-3 w-1/5 border border-slate-600">EMAIL</th>
-                <th class="p-3 w-1/6 border border-slate-600">SUBJECT</th>
-                <th class="p-3 w-2/5 border border-slate-600">MESSAGE</th>
+                <th class="p-3 text-center border border-slate-600">NO.</th>
+                <th class="p-3 text-center w-1/6 border border-slate-600">
+                  DATE
+                </th>
+                <th class="p-3 text-center w-1/5 border border-slate-600">
+                  EMAIL
+                </th>
+                <th class="p-3 text-center w-1/6 border border-slate-600">
+                  SUBJECT
+                </th>
+                <th class="p-3 text-center w-2/5 border border-slate-600">
+                  MESSAGE
+                </th>
               </tr>
             </thead>
-            <tbody id="rows">
-              <!-- <tr>
-                <td class="p-3 text-center w-1/6 border border-slate-600">1</td>
-                <td class="p-3 text-center w-1/6 border border-slate-600">
-                  31/10/2024 04:10PM
-                </td>
-                <td class="p-3 text-center w-1/6 border border-slate-600">
-                  ayushawasthi@gmail.com
-                </td>
-                <td class="p-3 text-center w-1/6 border border-slate-600">
-                  Contact me
-                </td>
-                <td class="p-3 text-center w-1/6 border border-slate-600">
-                  Hi this is Ayush from PTS Ltd. I am looking for Website
-                  Designing Service, if you are available then i would like talk
-                  further about that.
-                </td>
-              </tr> -->
-            </tbody>
+            <tbody id="rows"></tbody>
           </table>
         </div>
       </section>
     </main>
 
+    <footer
+      class="p-5 mt-12 text-center text-white"
+      style="background-color: #002428"
+    >
+      <p>PRAHYA TECH SERVICES</p>
+      <p>&COPY; Copyright. All Right Reserved.</p>
+    </footer>
     <script src="./AdminScript.js"></script>
   </body>
 </html>

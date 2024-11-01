@@ -103,26 +103,34 @@ let makeTable = () => {
   let code = ``;
   for (let i = 1; i <= 20; i++) {
     code += `
-                <tr>
-                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">${i}</td>
-                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-                  ${new Date(Date.now() + i * 100000000).toLocaleString()}
-                </td>
-                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-                  ayushawasthi@gmail.com
-                </td>
-                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-                  Contact me
-                </td>
-                <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-                  Hi this is Ayush from PTS Ltd. I am looking for Website
-                  Designing Service, if you are available then i would like talk
-                  further about that.
-                </td>
-              </tr>
-  `;
+        <tr class="hover:bg-blue-500 hover:text-white">
+          <td class="p-3 text-wrap text-center w-1/6 font-bold border border-slate-600">${i}</td>
+          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+            ${new Date(Date.now() + i * 100000000).toLocaleString("en-IN", {
+              dateStyle: "short",
+              timeStyle: "short",
+            })}
+          </td>
+          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+            ayushawasthi @ gmail.com
+          </td>
+          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+            Contact me
+          </td>
+          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
+            Hi this is Ayush from PTS Ltd. I am looking for Website
+            Designing Service, if you are available then i would like talk
+            further about that.
+          </td>
+        </tr>
+      `;
   }
   document.getElementById("rows").innerHTML = code;
 };
 
 window.onload = makeTable;
+
+//Model Close Button
+let closeModel = () => {
+  document.getElementById("profileModel");
+};
