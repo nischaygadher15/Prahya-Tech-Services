@@ -15,11 +15,8 @@ let handleUserDD = () => {
   }
 };
 
-let leave = () => {
-  console.log("Mouse Leaved.");
-};
-
-document.getElementById("userDrop").addEventListener("click", handleUserDD);
+console.log(document.getElementById("userDrop"));
+// document.getElementById("userDrop").addEventListener("click", handleUserDD);
 
 //Login Form Password Box Eye
 
@@ -74,7 +71,7 @@ let handleCeye = (event) => {
 let login = document.getElementById("loginForm");
 let reg = document.getElementById("regForm");
 
-let handleformSwitch = (event) => {
+let handleSwitch = (event) => {
   if (event.target.id == "login") {
     reg.style.display = "none";
     login.style.display = "flex";
@@ -87,8 +84,29 @@ let handleformSwitch = (event) => {
 
 //Handle Registration Submission
 
-let handleLoginSub = (event) => {
+let handleLoginSub = async (event) => {
+  event.preventDefault();
   //validation
+  //Submission
+  let loginF = document.getElementById("loginF");
+  let username = document.getElementsByName("username")[0].value;
+  let password = document.getElementsByName("password")[0].value;
+  let data = {
+    username,
+    password,
+  };
+  try {
+    await fetch("http://localhost:8000", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    console.log("Data Sent Successfully.");
+    loginF.reset();
+  } catch (error) {
+    console.log(error);
+  }
+  // console.log(JSON.stringify(data));
 };
 
 //Handle Registration Submission
@@ -130,11 +148,6 @@ let makeTable = () => {
 
 window.onload = makeTable;
 
-let showModel = () => {
-  document.getElementById("profileModel").style.display = "flex";
-  document.getElementsByTagName("body")[0].style.overflow = "hidden";
-};
-
 //Profile Model Password Eye
 
 let eyeP1 = document.getElementById("eyeP1");
@@ -168,13 +181,20 @@ let handlePfSave = () => {
 };
 
 //Model Close Button
+
+let showModel = () => {
+  document.getElementById("profileModel").style.display = "flex";
+  document.getElementsByTagName("body")[0].style.overflow = "hidden";
+};
+
 let closeModel = () => {
   eyeP1.style.display = "block";
   eyeP2.style.display = "none";
   profileInp.type = "password";
   document.getElementById("profileModel").style.display = "none";
+  document.getElementsByTagName("body")[0].style.overflow = "auto";
 };
 
 // Sign Out
 
-let sigMeOut = () => {};
+// let sigMeOut = () => {};
