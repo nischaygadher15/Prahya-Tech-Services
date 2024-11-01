@@ -130,7 +130,51 @@ let makeTable = () => {
 
 window.onload = makeTable;
 
+let showModel = () => {
+  document.getElementById("profileModel").style.display = "flex";
+  document.getElementsByTagName("body")[0].style.overflow = "hidden";
+};
+
+//Profile Model Password Eye
+
+let eyeP1 = document.getElementById("eyeP1");
+let eyeP2 = document.getElementById("eyeP2");
+let profileInp = document.getElementById("profileInp");
+
+let handlePeye = (event) => {
+  if (event.target.id == "eyeP1") {
+    eyeP1.style.display = "none";
+    eyeP2.style.display = "block";
+    profileInp.type = "text";
+  } else {
+    eyeP1.style.display = "block";
+    eyeP2.style.display = "none";
+    profileInp.type = "password";
+  }
+};
+
+//Profile Edit
+
+let handlePfEdit = () => {
+  document.getElementsByName("pusername")[0].removeAttribute("disabled");
+  document.getElementsByName("puseremail")[0].removeAttribute("disabled");
+  document.getElementsByName("puserpwd")[0].removeAttribute("disabled");
+};
+
+let handlePfSave = () => {
+  document.getElementsByName("pusername")[0].setAttribute("disabled", "");
+  document.getElementsByName("puseremail")[0].setAttribute("disabled", "");
+  document.getElementsByName("puserpwd")[0].setAttribute("disabled", "");
+};
+
 //Model Close Button
 let closeModel = () => {
-  document.getElementById("profileModel");
+  eyeP1.style.display = "block";
+  eyeP2.style.display = "none";
+  profileInp.type = "password";
+  document.getElementById("profileModel").style.display = "none";
 };
+
+// Sign Out
+
+let sigMeOut = () => {};
