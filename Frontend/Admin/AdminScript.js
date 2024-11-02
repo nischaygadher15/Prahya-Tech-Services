@@ -96,12 +96,16 @@ let handleLogin = async (event) => {
     password,
   };
   try {
-    await fetch("http://localhost:8000/auth/login", {
+    let res = await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    console.log("Data Sent Successfully.");
+
+    if (res.ok) {
+      let data = await res.text();
+      console.log(data);
+    }
     loginF.reset();
   } catch (error) {
     console.log(error);
