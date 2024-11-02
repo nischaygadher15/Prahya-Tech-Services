@@ -1,5 +1,6 @@
 import contactUsForm from "../Model/contactUs.js";
 import bcrypt from "bcrypt";
+import userRegModel from "../Model/userReg.js";
 
 let contactUsCtrl = async (req, res, next) => {
   let { username, email, subject, textarea } = req.body;
@@ -41,20 +42,46 @@ let decryptHash = async (pwd, dcryHash) => {
 // Login Controller
 let loginCtrl = async (req, res, next) => {
   let { username, password } = req.body;
-  let authHash = "$2b$10$gaYAAT1m90TqfLd0f2yuK.1ZqZXZRN53n8rf9VAHbwDAEnzGsioA6";
-  let authFlag = await decryptHash(password, authHash);
-  console.log("AuthFlag :", authFlag);
-  res.send("Yeah it is working.");
+  let userQuery = userRegModel.where({ username: username });
+  let authHash = await userQuery.findOne();
+  let authFlag;
+
+  if (authHash != null) {
+    console.log(`Username : ${authHash.username}`);
+    authFlag = await decryptHash(password, authHash.password);
+  } else {
+    authFlag = false;
+  }
+  res.json({ authFlag });
 };
 
 // Registration Controller
 let regCtrl = async (req, res, next) => {
   let { username, password, cpassword } = req.body;
-  if (password == cpassword) {
-    let regHash = await encryptHash(password);
-    console.log(regHash);
-  } else console.log("Password Do not Match.");
-  res.send();
+  let userQuery = userRegModel.where({ username: username });
+  let userFind = await userQuery.findOne();
+  console.log(userFind);
+  try {
+    if (userFind == null) {
+      if (password == cpassword) {
+        let regHash = await encryptHash(password);
+        let um = new userRegModel({
+          username: username,
+          password: regHash,
+          role: 1,
+        });
+        await um.save();
+        res.send("Registration Successfully Done.");
+      } else {
+        throw new Error("Password do not match.");
+      }
+    } else {
+      throw new Error("User Already Exists.");
+    }
+  } catch (error) {
+    console.log(error);
+    res.send("User Already Exists.");
+  }
 };
 
 export { contactUsCtrl, loginCtrl, regCtrl };

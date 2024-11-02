@@ -15,9 +15,6 @@ let handleUserDD = () => {
   }
 };
 
-console.log(document.getElementById("userDrop"));
-// document.getElementById("userDrop").addEventListener("click", handleUserDD);
-
 //Login Form Password Box Eye
 
 let e1 = document.getElementById("eye1");
@@ -101,12 +98,14 @@ let handleLogin = async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+    let resData = await res.json();
 
-    if (res.ok) {
-      let data = await res.text();
-      console.log(data);
+    if (resData.authFlag) {
+      loginF.reset();
+      window.location.href = "./AdminPanel.html";
+    } else {
+      throw new Error("Incorrect Credentials");
     }
-    loginF.reset();
   } catch (error) {
     console.log(error);
   }
@@ -130,19 +129,20 @@ let handleRegSub = async (event) => {
   };
 
   try {
-    await fetch("http://localhost:8000/auth/register", {
+    let regResp = await fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    console.log("Data Sent Successfully.");
+    let regRespData = await regResp.text();
+    console.log(regRespData);
     regF.reset();
   } catch (error) {
     console.log(error);
   }
 };
 
-//Admin Taable Building
+//Admin Table Building
 
 let makeTable = () => {
   let code = ``;
@@ -173,7 +173,10 @@ let makeTable = () => {
   document.getElementById("rows").innerHTML = code;
 };
 
-window.onload = makeTable;
+if (window.location.pathname.includes("AdminPanel.html")) {
+  document.getElementById("userDrop").addEventListener("click", handleUserDD);
+  window.onload = makeTable;
+}
 
 //Profile Model Password Eye
 
