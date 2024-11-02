@@ -6,6 +6,7 @@ import logger from "morgan";
 import cors from "cors";
 import "dotenv/config";
 import indexRouter from "./routes/index.js";
+import authRouter from "./routes/auth.js";
 import connectDB from "./db.js";
 
 let app = express();
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
+app.use("/auth", authRouter);
 
 connectDB(process.env.DBURL);
 

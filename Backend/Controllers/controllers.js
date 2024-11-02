@@ -1,4 +1,4 @@
-import contactUsForm from "../Model/contactUs";
+import contactUsForm from "../Model/contactUs.js";
 
 let contactUsCtrl = async (req, res, next) => {
   let { username, email, subject, textarea } = req.body;
@@ -16,4 +16,10 @@ let contactUsCtrl = async (req, res, next) => {
   }
 };
 
-export { contactUsCtrl };
+let loginCtrl = (req, res, next) => {
+  let { username, password } = req.body;
+  console.log(`user: ${username}, pwd:${password}`);
+  res.send();
+};
+
+export { contactUsCtrl, loginCtrl };

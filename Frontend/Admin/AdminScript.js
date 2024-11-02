@@ -82,9 +82,9 @@ let handleSwitch = (event) => {
   }
 };
 
-//Handle Registration Submission
+//Handle Login Submission
 
-let handleLoginSub = async (event) => {
+let handleLogin = async (event) => {
   event.preventDefault();
   //validation
   //Submission
@@ -96,7 +96,7 @@ let handleLoginSub = async (event) => {
     password,
   };
   try {
-    await fetch("http://localhost:8000", {
+    await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
