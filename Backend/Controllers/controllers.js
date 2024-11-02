@@ -60,27 +60,25 @@ let regCtrl = async (req, res, next) => {
   let { username, password, cpassword } = req.body;
   let userQuery = userRegModel.where({ username: username });
   let userFind = await userQuery.findOne();
-  console.log(userFind);
+  let regFlag;
+
   try {
     if (userFind == null) {
-      if (password == cpassword) {
-        let regHash = await encryptHash(password);
-        let um = new userRegModel({
-          username: username,
-          password: regHash,
-          role: 1,
-        });
-        await um.save();
-        res.send("Registration Successfully Done.");
-      } else {
-        throw new Error("Password do not match.");
-      }
+      let regHash = await encryptHash(password);
+      let um = new userRegModel({
+        username: username,
+        password: regHash,
+        role: 1,
+      });
+      await um.save();
+      regFlag = true;
     } else {
-      throw new Error("User Already Exists.");
+      regFlag = false;
     }
+    res.json({ regFlag });
   } catch (error) {
     console.log(error);
-    res.send("User Already Exists.");
+    res.send();
   }
 };
 

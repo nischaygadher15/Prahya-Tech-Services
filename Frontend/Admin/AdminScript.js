@@ -1,5 +1,26 @@
-// User Drop Down
+//Error Messages
+let errMsg = {
+  e101: "Password should have at least one uppercase letter, one special character and one number.",
+  e102: "Password should be at least six characters long.",
+  e103: "Invalid Credentials.",
+  e104: "User already exist.",
+  e105: "Password do not match.",
+  s101: "<i class='fa-solid fa-circle-check mr-2'></i>User Registered Successfully.",
+};
 
+// Login & Register Form Error Handing
+
+let showError = (ecode, spanId) => {
+  document.getElementById(`${spanId}`).style.display = "block";
+  document.getElementById(`${spanId}`).innerHTML = errMsg[ecode];
+};
+
+let hideError = (spanId) => {
+  document.getElementById(`${spanId}`).innerHTML = "";
+  document.getElementById(`${spanId}`).style.display = "none";
+};
+
+// User Drop Down
 let userDD = document.getElementById("userDD");
 
 let ddFlag = false;
@@ -83,6 +104,7 @@ let handleSwitch = (event) => {
 
 let handleLogin = async (event) => {
   event.preventDefault();
+  hideError("s101", "regSuccessMsg");
   //validation
   //Submission
   let loginF = document.getElementById("loginF");
@@ -101,10 +123,12 @@ let handleLogin = async (event) => {
     let resData = await res.json();
 
     if (resData.authFlag) {
+      hideError("pwdLogErr");
       loginF.reset();
       window.location.href = "./AdminPanel.html";
     } else {
-      throw new Error("Incorrect Credentials");
+      // throw new Error("Incorrect Credentials");
+      showError("e103", "pwdLogErr");
     }
   } catch (error) {
     console.log(error);
@@ -115,9 +139,7 @@ let handleLogin = async (event) => {
 
 let handleRegSub = async (event) => {
   event.preventDefault();
-  //validation
 
-  //Submission
   let regF = document.getElementById("regF");
   let username = document.getElementsByName("rusername")[0].value;
   let password = document.getElementsByName("rpassword")[0].value;
@@ -129,14 +151,21 @@ let handleRegSub = async (event) => {
   };
 
   try {
-    let regResp = await fetch("http://localhost:8000/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    let regRespData = await regResp.text();
-    console.log(regRespData);
-    regF.reset();
+    if (password == cpassword) {
+      let regResp = await fetch("http://localhost:8000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      let regRespData = await regResp.json();
+      if (regRespData.regFlag) {
+        regF.reset();
+        showError("s101", "regSuccessMsg");
+      } else {
+        console.log("pwds do not match");
+      }
+    } else {
+    }
   } catch (error) {
     console.log(error);
   }
@@ -224,7 +253,3 @@ let closeModel = () => {
   document.getElementById("profileModel").style.display = "none";
   document.getElementsByTagName("body")[0].style.overflow = "auto";
 };
-
-// Sign Out
-
-// let sigMeOut = () => {};

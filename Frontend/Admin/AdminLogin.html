@@ -17,7 +17,7 @@
   </head>
   <body>
     <div
-      class="wrapper w-full h-screen sm:flex flex-wrap sm:content-center"
+      class="wrapper w-full h-screen flex flex-col justify-between sm:flex-row sm:justify-center sm:flex-wrap sm:content-center"
       style="background-color: #002428"
     >
       <!--------------------------- Company Text Logo ---------------------------->
@@ -45,7 +45,7 @@
 
       <!--------------------------- Login Form ---------------------------->
       <div
-        class="w-full sm:w-1/2 h-2/3 sm:h-5/6 p-6 sm:py-0 flex flex-wrap flex-col justify-center content-center"
+        class="w-full sm:w-1/2 p-6 sm:py-0 flex flex-wrap flex-col justify-center content-center"
         id="loginForm"
       >
         <p class="mb-7 text-4xl text-center text-white">Welcome</p>
@@ -64,21 +64,23 @@
               <input
                 type="text"
                 name="username"
-                class="w-full p-3 rounded outline-none"
+                class="mb-1 w-full p-3 rounded outline-none"
                 placeholder="USERNAME"
+                required
               />
-              <span class="hidden text-red-500">Username is already exist</span>
+              <span class="hidden text-red-500" id="usrLogErr">Error1</span>
             </div>
 
             <!-- PASSWORD -->
-            <div class="mb-10">
+            <div class="mb-8">
               <div class="relative">
                 <input
                   type="password"
                   name="password"
-                  class="w-full p-3 rounded outline-none"
+                  class="mb-1 w-full p-3 rounded outline-none"
                   placeholder="PASSWORD"
                   id="pwd"
+                  required
                 />
                 <div class="absolute right-3" style="top: 25%">
                   <i
@@ -93,9 +95,7 @@
                     style="display: none !important"
                   ></i>
                 </div>
-                <span class="hidden text-red-500"
-                  >Username is already exist</span
-                >
+                <span class="hidden text-red-500" id="pwdLogErr">Error1</span>
               </div>
             </div>
 
@@ -103,7 +103,7 @@
             <input
               type="submit"
               value="LOGIN"
-              class="w-3/4 cursor-pointer mb-10 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
+              class="w-3/4 cursor-pointer mb-8 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
             />
           </form>
         </div>
@@ -124,7 +124,7 @@
 
       <!--------------------------- Registration Form ---------------------------->
       <div
-        class="w-full sm:w-1/2 sm:h-5/6 p-6 sm:py-0 hidden flex-wrap flex-col justify-center content-center"
+        class="w-full sm:w-1/2 p-6 sm:py-0 hidden flex-wrap flex-col justify-center content-center"
         id="regForm"
       >
         <p class="mb-5 text-4xl text-center text-white">Welcome</p>
@@ -134,7 +134,7 @@
 
         <div class="w-full flex justify-center">
           <form
-            class="w-full md:w-5/6 lg:w-2/3 mt-8 flex flex-wrap flex-col"
+            class="w-full md:w-5/6 lg:w-2/3 mt-6 flex flex-wrap flex-col"
             onsubmit="handleRegSub(event)"
             id="regF"
           >
@@ -155,7 +155,7 @@
                 <input
                   type="password"
                   name="rpassword"
-                  class="w-full p-3 rounded outline-none"
+                  class="w-full mb-1 p-3 rounded outline-none"
                   placeholder="PASSWORD"
                   id="pwd2"
                 />
@@ -177,12 +177,12 @@
             </div>
 
             <!-- CONFIRM PASSWORD -->
-            <div class="mb-8">
+            <div class="mb-6">
               <div class="relative">
                 <input
                   type="password"
                   name="cpassword"
-                  class="w-full p-3 rounded outline-none"
+                  class="w-full mb-1 p-3 rounded outline-none"
                   placeholder="CONFIRM PASSWORD"
                   id="cpwdBox"
                 />
@@ -209,6 +209,11 @@
               value="REGISTER"
               class="w-3/4 mb-6 mx-auto p-3 rounded bg-orange-700 text-white font-bold hover:bg-orange-500"
             />
+            <span
+              class="hidden text-xl text-green-400 text-center mb-6"
+              id="regSuccessMsg"
+            >
+            </span>
           </form>
         </div>
 
@@ -225,9 +230,12 @@
           </button>
         </p>
       </div>
-      <!--Register Form-->
 
-      <p class="mt-6 w-full text-center text-white">
+      <!--------------------------- Footer ---------------------------->
+      <p
+        class="py-6 w-full text-center text-white"
+        style="background-color: #002428"
+      >
         PTS&nbsp;&COPY; Copyright. All Right Reserved.
       </p>
     </div>
