@@ -22,4 +22,10 @@ let loginCtrl = (req, res, next) => {
   res.send();
 };
 
-export { contactUsCtrl, loginCtrl };
+let regCtrl = (req, res, next) => {
+  let { username, password, cpassword } = req.body;
+  console.log(`user: ${username}, pwd:${password}, cpwd:${cpassword}`);
+  res.send();
+};
+
+export { contactUsCtrl, loginCtrl, regCtrl };

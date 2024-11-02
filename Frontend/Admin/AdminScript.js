@@ -106,13 +106,36 @@ let handleLogin = async (event) => {
   } catch (error) {
     console.log(error);
   }
-  // console.log(JSON.stringify(data));
 };
 
 //Handle Registration Submission
 
-let handleRegSub = (event) => {
+let handleRegSub = async (event) => {
+  event.preventDefault();
   //validation
+
+  //Submission
+  let regF = document.getElementById("regF");
+  let username = document.getElementsByName("rusername")[0].value;
+  let password = document.getElementsByName("rpassword")[0].value;
+  let cpassword = document.getElementsByName("cpassword")[0].value;
+  let data = {
+    username,
+    password,
+    cpassword,
+  };
+
+  try {
+    await fetch("http://localhost:8000/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    console.log("Data Sent Successfully.");
+    regF.reset();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //Admin Taable Building
