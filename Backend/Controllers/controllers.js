@@ -60,7 +60,7 @@ let regCtrl = async (req, res, next) => {
   let { username, password, cpassword } = req.body;
   let userQuery = userRegModel.where({ username: username });
   let userFind = await userQuery.findOne();
-  let regFlag;
+  let regFlag, errorCode;
 
   try {
     if (userFind == null) {
@@ -72,13 +72,14 @@ let regCtrl = async (req, res, next) => {
       });
       await um.save();
       regFlag = true;
+      errorCode = "";
     } else {
       regFlag = false;
+      errorCode = "e104";
     }
-    res.json({ regFlag });
+    res.json({ regFlag: regFlag, error: errorCode });
   } catch (error) {
-    console.log(error);
-    res.send();
+    res.json({ regFlag: false, error: error.message });
   }
 };
 

@@ -1,10 +1,10 @@
 //Error Messages
 let errMsg = {
-  e101: "Password should have at least one uppercase letter, one special character and one number.",
-  e102: "Password should be at least six characters long.",
-  e103: "Invalid Credentials.",
-  e104: "User already exist.",
-  e105: "Password do not match.",
+  e101: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password should have at least one uppercase letter, one special character and one number.",
+  e102: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password should be at least six characters long.",
+  e103: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Invalid Credentials.",
+  e104: "<i class='fa-solid fa-circle-exclamation mr-2'></i>User already exist.",
+  e105: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password do not match.",
   s101: "<i class='fa-solid fa-circle-check mr-2'></i>User Registered Successfully.",
 };
 
@@ -104,7 +104,7 @@ let handleSwitch = (event) => {
 
 let handleLogin = async (event) => {
   event.preventDefault();
-  hideError("s101", "regSuccessMsg");
+  hideError("regSuccessMsg");
   //validation
   //Submission
   let loginF = document.getElementById("loginF");
@@ -123,7 +123,8 @@ let handleLogin = async (event) => {
     let resData = await res.json();
 
     if (resData.authFlag) {
-      hideError("pwdLogErr");
+      if (document.getElementById("pwdLogErr").style.display != "none")
+        hideError("pwdLogErr");
       loginF.reset();
       window.location.href = "./AdminPanel.html";
     } else {
@@ -151,21 +152,33 @@ let handleRegSub = async (event) => {
   };
 
   try {
-    if (password == cpassword) {
-      let regResp = await fetch("http://localhost:8000/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      let regRespData = await regResp.json();
-      if (regRespData.regFlag) {
+    let regResp = await fetch("http://localhost:8000/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    let regRespData = await regResp.json();
+
+    if (regRespData.regFlag) {
+      if (document.getElementById(regSuccessMsg) != null) {
+        hideError("regSuccessMsg");
+      }
+      if (password == cpassword) {
         regF.reset();
+        if (document.getElementById(userRegErr) != null) {
+          hideError("userRegErr");
+        }
         showError("s101", "regSuccessMsg");
-      } else {
-        console.log("pwds do not match");
       }
     } else {
+      if (Object.keys(errMsg).includes(regRespData.error)) {
+        showError(regRespData.error, "userRegErr");
+      } else {
+        showError(regRespData.error, "regSuccessMsg");
+      }
     }
+
+    // showError("e105", "cpwdRegErr");
   } catch (error) {
     console.log(error);
   }
