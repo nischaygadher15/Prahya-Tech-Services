@@ -6,6 +6,7 @@ let errMsg = {
   e105: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password do not match.",
   e106: "<i class='fa-solid fa-circle-exclamation mr-2'></i>User Does not exist.",
   s101: "<i class='fa-solid fa-circle-check mr-2'></i>User Registered Successfully.",
+  s102: "<i class='fa-solid fa-circle-check mr-2'></i>User Updated Successfully.",
 };
 
 // Login & Register Form Error Handing
@@ -37,6 +38,8 @@ let highAllErrors = () => {
     "pwdLogErr",
     "usrLogErr",
     "logFailMsg",
+    "adminModMsg",
+    "adminModErr",
   ];
   regFormErrs.forEach((err) => hideError(err));
 };
@@ -126,6 +129,19 @@ let handleSwitch = (event) => {
   }
 };
 
+//Make Cookie
+
+let putinCookie = (user, time) => {
+  let expireTime = time + 30 * 60 * 1000;
+  let expireTimeString = `${new Date(expireTime).toLocaleDateString("en-IN", {
+    dateStyle: "long",
+    timeStyle: "long",
+  })}`;
+  console.log(expireTimeString);
+  // document.cookies = `username=${user}; time=${expireTime}`;
+};
+putinCookie("Rama", Date.now());
+
 //Handle Login Submission
 
 let handleLogin = async (event) => {
@@ -151,6 +167,7 @@ let handleLogin = async (event) => {
     if (resData.authFlag) {
       hideError("pwdLogErr");
       loginF.reset();
+      putinCookie(username, Date.now());
       window.location.href = "./AdminPanel.html";
     } else {
       resData.error.forEach((err) => {
@@ -260,11 +277,6 @@ let makeTable = async () => {
   document.getElementById("rows").innerHTML = code;
 };
 
-if (window.location.pathname.includes("AdminPanel.html")) {
-  document.getElementById("userDrop").addEventListener("click", handleUserDD);
-  window.onload = makeTable;
-}
-
 //Profile Model Password Eye
 
 let eyeP1 = document.getElementById("eyeP1");
@@ -287,15 +299,66 @@ let handlePeye = (event) => {
 
 let handlePfEdit = () => {
   document.getElementsByName("pusername")[0].removeAttribute("disabled");
-  document.getElementsByName("puseremail")[0].removeAttribute("disabled");
+  // document.getElementsByName("puseremail")[0].removeAttribute("disabled");
   document.getElementsByName("puserpwd")[0].removeAttribute("disabled");
 };
 
-let handlePfSave = () => {
+//Profile Updation
+
+let handlePfSave = async () => {
   document.getElementsByName("pusername")[0].setAttribute("disabled", "");
-  document.getElementsByName("puseremail")[0].setAttribute("disabled", "");
+  // document.getElementsByName("puseremail")[0].setAttribute("disabled", "");
   document.getElementsByName("puserpwd")[0].setAttribute("disabled", "");
+
+  let username = document.getElementsByName("pusername")[0].value;
+  // let email = document.getElementsByName("puseremail")[0].value;
+  let password = document.getElementsByName("puserpwd")[0].value;
+  let data = {
+    username: username,
+    pwd: password,
+  };
+
+  highAllErrors();
+
+  try {
+    let saveResp = await fetch("http://localhost:8000/", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    let saveRespData = await saveResp.json();
+    if (saveRespData.saveFlag) {
+      showError("s102", "adminModMsg");
+    } else {
+      showError("e106", "adminModErr");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+// Fetch Admin Name , Password
+
+let fetchActUser = async () => {
+  document.getElementsByName("pusername")[0].value = "Nischay";
+  document.getElementsByName("puserpwd")[0].value = "Nisc123";
+
+  let res = await fetch("http://localhost:8000/admin", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  let resData = await res.json();
+};
+
+if (window.location.pathname.includes("AdminPanel.html")) {
+  document.getElementById("userDrop").addEventListener("click", handleUserDD);
+  window.onload = () => {
+    makeTable();
+    fetchActUser();
+  };
+}
 
 //Model Close Button
 

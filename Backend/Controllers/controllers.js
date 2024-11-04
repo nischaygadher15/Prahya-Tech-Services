@@ -89,6 +89,34 @@ let decryptData = ({ cipher, key, iv }) => {
   return decipherText;
 };
 
+let updateAdmin = async (req, res, next) => {
+  let { username, pwd } = req.body;
+  console.log("Req:", username, pwd);
+  let pwdObj = encryptData(pwd);
+  let saveFlag;
+  let adm = await userRegModel.findOneAndUpdate(
+    { username: username },
+    { username: username, pwdObj: pwdObj },
+    { upsert: false, new: true }
+  );
+  console.log("adm:", adm);
+  if (adm != null) {
+    saveFlag = true;
+    await adm.save();
+  } else {
+    saveFlag = false;
+  }
+  res.json({ saveFlag });
+};
+
+let getAdmin = async (req, res, next) => {
+  let username = req.username;
+  let admin = await userRegModel.findOne({ username: username });
+  console.log(admin);
+
+  res.json({ saveFlag });
+};
+
 // Login Controller
 let loginCtrl = async (req, res, next) => {
   let { username, password } = req.body;
@@ -157,4 +185,11 @@ let regCtrl = async (req, res, next) => {
   }
 };
 
-export { contactUsCtrl, loginCtrl, regCtrl, contactUsData };
+export {
+  contactUsCtrl,
+  loginCtrl,
+  regCtrl,
+  contactUsData,
+  updateAdmin,
+  getAdmin,
+};

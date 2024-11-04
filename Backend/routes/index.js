@@ -1,5 +1,10 @@
 import express from "express";
-import { contactUsCtrl, contactUsData } from "../Controllers/controllers.js";
+import {
+  contactUsCtrl,
+  contactUsData,
+  getAdmin,
+  updateAdmin,
+} from "../Controllers/controllers.js";
 
 let router = express.Router();
 
@@ -8,8 +13,12 @@ router.get("/", (req, res, next) => {
   res.render("index", { title: "Express" });
 });
 
+router.post("/", contactUsCtrl);
+
+router.put("/", updateAdmin);
+
 router.get("/data", contactUsData);
 
-router.post("/", contactUsCtrl);
+router.get("/admin", getAdmin);
 
 export default router;
