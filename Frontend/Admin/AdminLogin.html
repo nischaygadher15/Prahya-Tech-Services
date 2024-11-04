@@ -146,9 +146,7 @@
                 class="w-full p-3 mb-1 rounded outline-none"
                 placeholder="USERNAME"
               />
-              <span class="hidden text-red-500" id="userRegErr"
-                >Username is already exist</span
-              >
+              <span class="hidden text-red-500" id="userRegErr"></span>
             </div>
 
             <!-- PASSWORD -->
@@ -175,7 +173,7 @@
                   ></i>
                 </div>
               </div>
-              <span class="hidden text-red-500"></span>
+              <span class="hidden text-red-500" id="pwdRegErr"></span>
             </div>
 
             <!-- CONFIRM PASSWORD -->
@@ -216,6 +214,10 @@
               id="regSuccessMsg"
             >
             </span>
+            <span
+              class="hidden text-xl text-red-400 text-center mb-6"
+              id="regFailMsg"
+            ></span>
           </form>
         </div>
 

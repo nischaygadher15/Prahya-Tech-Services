@@ -1,6 +1,5 @@
 //Error Messages
 let errMsg = {
-  e101: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password should have at least one uppercase letter, one special character and one number.",
   e102: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password should be at least six characters long.",
   e103: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Invalid Credentials.",
   e104: "<i class='fa-solid fa-circle-exclamation mr-2'></i>User already exist.",
@@ -12,12 +11,31 @@ let errMsg = {
 
 let showError = (ecode, spanId) => {
   document.getElementById(`${spanId}`).style.display = "block";
-  document.getElementById(`${spanId}`).innerHTML = errMsg[ecode];
+  document.getElementById(`${spanId}`).innerHTML = Object.keys(errMsg).includes(
+    ecode
+  )
+    ? errMsg[ecode]
+    : ecode;
 };
 
 let hideError = (spanId) => {
-  document.getElementById(`${spanId}`).innerHTML = "";
-  document.getElementById(`${spanId}`).style.display = "none";
+  if (document.getElementById(`${spanId}`) != null) {
+    document.getElementById(`${spanId}`).innerHTML = "";
+    document.getElementById(`${spanId}`).style.display = "none";
+  }
+};
+
+// Hide All Error in Beginning
+let highAllErrors = () => {
+  let regFormErrs = [
+    "regSuccessMsg",
+    "regFailMsg",
+    "cpwdRegErr",
+    "pwdRegErr",
+    "userRegErr",
+    "pwdLogErr",
+  ];
+  regFormErrs.forEach((err) => hideError(err));
 };
 
 // User Drop Down
@@ -91,10 +109,15 @@ let reg = document.getElementById("regForm");
 
 let handleSwitch = (event) => {
   if (event.target.id == "login") {
+    let regF = document.getElementById("regF");
+    highAllErrors();
+    regF.reset();
     reg.style.display = "none";
     login.style.display = "flex";
   }
   if (event.target.id == "reg") {
+    let loginF = document.getElementById("loginF");
+    loginF.reset();
     reg.style.display = "flex";
     login.style.display = "none";
   }
@@ -104,8 +127,6 @@ let handleSwitch = (event) => {
 
 let handleLogin = async (event) => {
   event.preventDefault();
-  hideError("regSuccessMsg");
-  //validation
   //Submission
   let loginF = document.getElementById("loginF");
   let username = document.getElementsByName("username")[0].value;
@@ -114,6 +135,7 @@ let handleLogin = async (event) => {
     username,
     password,
   };
+
   try {
     let res = await fetch("http://localhost:8000/auth/login", {
       method: "POST",
@@ -123,8 +145,7 @@ let handleLogin = async (event) => {
     let resData = await res.json();
 
     if (resData.authFlag) {
-      if (document.getElementById("pwdLogErr").style.display != "none")
-        hideError("pwdLogErr");
+      hideError("pwdLogErr");
       loginF.reset();
       window.location.href = "./AdminPanel.html";
     } else {
@@ -151,6 +172,7 @@ let handleRegSub = async (event) => {
     cpassword,
   };
 
+  highAllErrors();
   try {
     let regResp = await fetch("http://localhost:8000/auth/register", {
       method: "POST",
@@ -158,27 +180,28 @@ let handleRegSub = async (event) => {
       body: JSON.stringify(data),
     });
     let regRespData = await regResp.json();
+    // console.log(regRespData.regFlag, regRespData.error);
 
     if (regRespData.regFlag) {
-      if (document.getElementById(regSuccessMsg) != null) {
-        hideError("regSuccessMsg");
-      }
-      if (password == cpassword) {
-        regF.reset();
-        if (document.getElementById(userRegErr) != null) {
-          hideError("userRegErr");
-        }
-        showError("s101", "regSuccessMsg");
-      }
+      regF.reset();
+      showError("s101", "regSuccessMsg");
     } else {
-      if (Object.keys(errMsg).includes(regRespData.error)) {
-        showError(regRespData.error, "userRegErr");
-      } else {
-        showError(regRespData.error, "regSuccessMsg");
-      }
+      regRespData.error.forEach((err) => {
+        switch (err) {
+          case "e102":
+            showError("e102", "pwdRegErr");
+            break;
+          case "e104":
+            showError("e104", "userRegErr");
+            break;
+          case "e105":
+            showError("e105", "cpwdRegErr");
+            break;
+          default:
+            showError(regRespData.error, "regFailMsg");
+        }
+      });
     }
-
-    // showError("e105", "cpwdRegErr");
   } catch (error) {
     console.log(error);
   }
