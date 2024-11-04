@@ -145,9 +145,12 @@ let contactUs = document.getElementById("contactUsForm");
 let data = {};
 let handleSubmit = async (event) => {
   event.preventDefault();
+  let uemail = event.target[1].value.split("@");
+  let femail = `${uemail[0]} @${uemail[1]}`;
   data = {
+    createdat: Date.now(),
     username: event.target[0].value,
-    email: event.target[1].value,
+    email: femail,
     subject: event.target[2].value,
     textarea: event.target[3].value,
   };

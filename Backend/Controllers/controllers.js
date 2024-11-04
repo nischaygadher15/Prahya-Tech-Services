@@ -5,9 +5,10 @@ import config from "../config.js";
 import userRegModel from "../Model/userReg.js";
 
 let contactUsCtrl = async (req, res, next) => {
-  let { username, email, subject, textarea } = req.body;
+  let { createdat, username, email, subject, textarea } = req.body;
   try {
     let f1 = new contactUsForm({
+      createdat: createdat,
       username: username,
       email: email,
       subject: subject,
@@ -18,6 +19,11 @@ let contactUsCtrl = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+let contactUsData = async (req, res, next) => {
+  let tbData = await contactUsForm.find({}).sort({ createdat: -1 });
+  res.json(tbData);
 };
 
 // bcrypt Encryption
@@ -151,4 +157,4 @@ let regCtrl = async (req, res, next) => {
   }
 };
 
-export { contactUsCtrl, loginCtrl, regCtrl };
+export { contactUsCtrl, loginCtrl, regCtrl, contactUsData };

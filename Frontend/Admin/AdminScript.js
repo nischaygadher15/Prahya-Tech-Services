@@ -223,32 +223,40 @@ let handleRegSub = async (event) => {
 
 //Admin Table Building
 
-let makeTable = () => {
-  let code = ``;
-  for (let i = 1; i <= 20; i++) {
+let makeTable = async () => {
+  let tb = await fetch("http://localhost:8000/data", {
+    method: "GET",
+  });
+  let tbData = await tb.json();
+
+  let code = ``,
+    i = 1;
+  tbData.forEach((row) => {
     code += `
         <tr class="hover:bg-blue-500 hover:text-white">
           <td class="p-3 text-wrap text-center w-1/6 font-bold border border-slate-600">${i}</td>
           <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-            ${new Date(Date.now() + i * 100000000).toLocaleString("en-IN", {
+            ${new Date(row.createdat).toLocaleString("en-IN", {
               dateStyle: "short",
               timeStyle: "short",
             })}
           </td>
-          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-            ayushawasthi @ gmail.com
+          <td class="p-3 text-wrap text-center w-1/5 border border-slate-600">
+            ${row.username}
+          </td>
+          <td class="p-3 text-wrap text-center w-1/5 border border-slate-600">
+          ${row.email}
           </td>
           <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-            Contact me
+          ${row.subject}
           </td>
-          <td class="p-3 text-wrap text-center w-1/6 border border-slate-600">
-            Hi this is Ayush from PTS Ltd. I am looking for Website
-            Designing Service, if you are available then i would like talk
-            further about that.
+          <td class="p-3 text-wrap text-center w-2/5 border border-slate-600">
+          ${row.message}
           </td>
         </tr>
       `;
-  }
+    i++;
+  });
   document.getElementById("rows").innerHTML = code;
 };
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { contactUsCtrl } from "../Controllers/controllers.js";
+import { contactUsCtrl, contactUsData } from "../Controllers/controllers.js";
 
 let router = express.Router();
 
@@ -7,6 +7,8 @@ let router = express.Router();
 router.get("/", (req, res, next) => {
   res.render("index", { title: "Express" });
 });
+
+router.get("/data", contactUsData);
 
 router.post("/", contactUsCtrl);
 
