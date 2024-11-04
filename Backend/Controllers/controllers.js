@@ -71,22 +71,46 @@ let encryptData = (data) => {
 };
 
 //Crypto Decryption
-let decryptData = () => {};
+let decryptData = ({ cipher, key, iv }) => {
+  const cipherText = Buffer.from(cipher, "base64");
+  const keyText = Buffer.from(key, "base64");
+  const ivText = Buffer.from(iv, "base64");
+
+  const decipher = crypto.createDecipheriv(encryption_method, keyText, ivText);
+  let decipherText =
+    decipher.update(cipherText.toString("utf8"), "hex", "utf8") +
+    decipher.final("utf8");
+  return decipherText;
+};
 
 // Login Controller
 let loginCtrl = async (req, res, next) => {
   let { username, password } = req.body;
   let userQuery = userRegModel.where({ username: username });
-  let authHash = await userQuery.findOne();
-  let authFlag;
+  let userObj = await userQuery.findOne();
+  let authFlag,
+    errorCode = [];
 
-  if (authHash != null) {
-    console.log(`Username : ${authHash.username}`);
-    authFlag = await decryptHash(password, authHash.password);
+  if (userObj != null) {
+    // decrypted = decryptData(userObj.pwdObj);
+    let { cipherBase64, key, encryptionIV } = encryptData(password);
+    let { pwdObj } = userObj;
+    if (
+      cipherBase64 == pwdObj.cipher &&
+      key == pwdObj.key &&
+      encryptionIV == pwdObj.iv
+    ) {
+      authFlag = true;
+      errorCode = [];
+    } else {
+      authFlag = false;
+      errorCode.push("e103");
+    }
   } else {
     authFlag = false;
+    errorCode.push("e106");
   }
-  res.json({ authFlag });
+  res.json({ authFlag: authFlag, error: errorCode });
 };
 
 // Registration Controller

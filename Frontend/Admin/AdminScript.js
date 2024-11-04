@@ -4,6 +4,7 @@ let errMsg = {
   e103: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Invalid Credentials.",
   e104: "<i class='fa-solid fa-circle-exclamation mr-2'></i>User already exist.",
   e105: "<i class='fa-solid fa-circle-exclamation mr-2'></i>Password do not match.",
+  e106: "<i class='fa-solid fa-circle-exclamation mr-2'></i>User Does not exist.",
   s101: "<i class='fa-solid fa-circle-check mr-2'></i>User Registered Successfully.",
 };
 
@@ -34,6 +35,8 @@ let highAllErrors = () => {
     "pwdRegErr",
     "userRegErr",
     "pwdLogErr",
+    "usrLogErr",
+    "logFailMsg",
   ];
   regFormErrs.forEach((err) => hideError(err));
 };
@@ -136,6 +139,7 @@ let handleLogin = async (event) => {
     password,
   };
 
+  highAllErrors();
   try {
     let res = await fetch("http://localhost:8000/auth/login", {
       method: "POST",
@@ -149,8 +153,18 @@ let handleLogin = async (event) => {
       loginF.reset();
       window.location.href = "./AdminPanel.html";
     } else {
-      // throw new Error("Incorrect Credentials");
-      showError("e103", "pwdLogErr");
+      resData.error.forEach((err) => {
+        switch (err) {
+          case "e103":
+            showError("e103", "pwdLogErr");
+            break;
+          case "e106":
+            showError("e106", "usrLogErr");
+            break;
+          default:
+            showError(regRespData.error, "logFailMsg");
+        }
+      });
     }
   } catch (error) {
     console.log(error);
