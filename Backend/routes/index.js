@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path";
+
 import {
   contactUsCtrl,
   contactUsData,
@@ -14,10 +16,6 @@ let router = express.Router();
 // });
 router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.hbs"));
-});
-
-router.get("/", (req, res) => {
-  res.send("Hello World");
 });
 
 router.post("/", contactUsCtrl);
