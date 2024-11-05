@@ -13,6 +13,10 @@ router.get("/", (req, res, next) => {
   res.render("index", { title: "Express" });
 });
 
+router.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 router.post("/", contactUsCtrl);
 
 router.put("/", updateAdmin);
