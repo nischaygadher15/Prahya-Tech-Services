@@ -9,8 +9,11 @@ import {
 let router = express.Router();
 
 /* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index.hbs", { title: "Express" });
+// router.get("/", (req, res, next) => {
+//   res.render("index", { title: "Express" });
+// });
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "index.hbs"));
 });
 
 router.get("/", (req, res) => {
