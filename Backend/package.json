@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
-  "main": "www.js",
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "dev": "nodemon ./bin/www.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

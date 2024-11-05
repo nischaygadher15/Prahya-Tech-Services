@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 
 import {
   contactUsCtrl,
@@ -9,7 +8,6 @@ import {
 } from "../Controllers/controllers.js";
 
 let router = express.Router();
-let __dirname = path.resolve();
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
