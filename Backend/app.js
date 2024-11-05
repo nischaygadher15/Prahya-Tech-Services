@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: ["https://pts-frontend.vercel.app/"],
+    origin: ["https://pts-backend.vercel.app/"],
     methods: ["POST", "GET", "PUT"],
     credentials: true,
   })
