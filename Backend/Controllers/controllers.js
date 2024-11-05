@@ -28,11 +28,11 @@ let contactUsData = async (req, res, next) => {
 //Crypto Encryption
 const { secret_key, secret_iv, encryption_method } = config;
 
-// if (!secret_key || !secret_iv || !encryption_method) {
-//   throw new Error(
-//     "secret_key, secret_iv, encryption_method are required for Encryption/Decryption."
-//   );
-// }
+if (!secret_key || !secret_iv || !encryption_method) {
+  throw new Error(
+    "secret_key, secret_iv, encryption_method are required for Encryption/Decryption."
+  );
+}
 
 // Generate secret hash with crypto to use for encryption
 
