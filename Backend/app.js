@@ -41,10 +41,7 @@ app.use(
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 
-// connectDB(process.env.DB_URL);
-connectDB(
-  "mongodb+srv://ayushawasthi:ayushawasthi@ptscluster.zbady.mongodb.net/pts"
-);
+connectDB(process.env.DB_URL);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
