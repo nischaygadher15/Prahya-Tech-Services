@@ -12,11 +12,8 @@ let router = express.Router();
 let __dirname = path.resolve();
 
 /* GET home page. */
-// router.get("/", (req, res, next) => {
-//   res.render("index", { title: "Express" });
-// });
-router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "index.hbs"));
+router.get("/", (req, res, next) => {
+  res.render("index", { title: "Express" });
 });
 
 router.post("/", contactUsCtrl);
