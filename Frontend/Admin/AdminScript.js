@@ -132,15 +132,12 @@ let handleSwitch = (event) => {
 //Make Cookie
 
 let putinCookie = (user, time) => {
-  let expireTime = time + 30 * 60 * 1000;
-  let expireTimeString = `${new Date(expireTime).toLocaleDateString("en-IN", {
-    dateStyle: "long",
-    timeStyle: "long",
-  })}`;
-  console.log(expireTimeString);
-  // document.cookies = `username=${user}; time=${expireTime}`;
+  let data = {
+    username: user,
+    expires: time + 30 * 60 * 1000,
+  };
+  localStorage.setItem("activeuser", JSON.stringify(data));
 };
-putinCookie("Rama", Date.now());
 
 //Handle Login Submission
 
@@ -341,15 +338,18 @@ let handlePfSave = async () => {
 // Fetch Admin Name , Password
 
 let fetchActUser = async () => {
-  document.getElementsByName("pusername")[0].value = "Nischay";
-  document.getElementsByName("puserpwd")[0].value = "Nisc123";
+  highAllErrors();
+  let data = JSON.parse(localStorage.getItem("activeuser"));
 
   let res = await fetch("http://localhost:8000/admin", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  let resData = await res.json();
+  let resData = await res.text();
+
+  document.getElementsByName("pusername")[0].value = data.username;
+  document.getElementsByName("puserpwd")[0].value = resData;
 };
 
 if (window.location.pathname.includes("AdminPanel.html")) {
@@ -364,6 +364,7 @@ if (window.location.pathname.includes("AdminPanel.html")) {
 
 let showModel = () => {
   document.getElementById("profileModel").style.display = "flex";
+  fetchActUser();
   document.getElementsByTagName("body")[0].style.overflow = "hidden";
 };
 

@@ -19,6 +19,6 @@ router.put("/", updateAdmin);
 
 router.get("/data", contactUsData);
 
-router.get("/admin", getAdmin);
+router.post("/admin", getAdmin);
 
 export default router;

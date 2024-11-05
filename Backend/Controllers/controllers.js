@@ -1,5 +1,4 @@
 import contactUsForm from "../Model/contactUs.js";
-import bcrypt from "bcrypt";
 import crypto from "crypto";
 import config from "../config.js";
 import userRegModel from "../Model/userReg.js";
@@ -26,27 +25,6 @@ let contactUsData = async (req, res, next) => {
   res.json(tbData);
 };
 
-// bcrypt Encryption
-// let encryptHash = async (ecryPwd) => {
-//   try {
-//     let salt = bcrypt.genSaltSync(10);
-//     let ecryHash = await bcrypt.hash(ecryPwd, salt);
-//     return ecryHash.toString();
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
-
-// bcrypt Comparison
-// let decryptHash = async (pwd, dcryHash) => {
-//   try {
-//     let flag = await bcrypt.compare(pwd, dcryHash);
-//     return flag;
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
-
 //Crypto Encryption
 const { secret_key, secret_iv, encryption_method } = config;
 
@@ -56,7 +34,9 @@ if (!secret_key || !secret_iv || !encryption_method) {
   );
 }
 
-const key = crypto
+// Generate secret hash with crypto to use for encryption
+
+const secretkey = crypto
   .createHash("sha512")
   .update(secret_key)
   .digest("hex")
@@ -68,35 +48,42 @@ const encryptionIV = crypto
   .digest("hex")
   .substring(0, 16);
 
+// Encrypt data
 let encryptData = (data) => {
-  const cipher = crypto.createCipheriv(encryption_method, key, encryptionIV);
-  let cipherText = cipher.update(data, "utf8", "hex") + cipher.final("hex");
-  let cipherBase64 = cipherText.toString("base64");
-  console.log(cipherBase64);
-  return { cipherBase64, key, encryptionIV };
+  const cipher = crypto.createCipheriv(
+    encryption_method,
+    secretkey,
+    encryptionIV
+  );
+  return Buffer.from(
+    cipher.update(data, "utf8", "hex") + cipher.final("hex")
+  ).toString("base64");
 };
 
-//Crypto Decryption
-let decryptData = ({ cipher, key, iv }) => {
-  const cipherText = Buffer.from(cipher, "base64");
-  const keyText = Buffer.from(key, "base64");
-  const ivText = Buffer.from(iv, "base64");
-
-  const decipher = crypto.createDecipheriv(encryption_method, keyText, ivText);
-  let decipherText =
-    decipher.update(cipherText.toString("utf8"), "hex", "utf8") +
-    decipher.final("utf8");
-  return decipherText;
+// Decrypt data
+let decryptData = (encryptedData) => {
+  const buff = Buffer.from(encryptedData, "base64");
+  const decipher = crypto.createDecipheriv(
+    encryption_method,
+    secretkey,
+    encryptionIV
+  );
+  return (
+    decipher.update(buff.toString("utf8"), "hex", "utf8") +
+    decipher.final("utf8")
+  );
 };
+
+//Updating Admin User Data
 
 let updateAdmin = async (req, res, next) => {
   let { username, pwd } = req.body;
-  console.log("Req:", username, pwd);
-  let pwdObj = encryptData(pwd);
+
+  let password = encryptData(pwd);
   let saveFlag;
   let adm = await userRegModel.findOneAndUpdate(
     { username: username },
-    { username: username, pwdObj: pwdObj },
+    { username: username, password: password },
     { upsert: false, new: true }
   );
   console.log("adm:", adm);
@@ -109,12 +96,13 @@ let updateAdmin = async (req, res, next) => {
   res.json({ saveFlag });
 };
 
+//Fetching Admin User Data
 let getAdmin = async (req, res, next) => {
-  let username = req.username;
+  let username = req.body.username;
   let admin = await userRegModel.findOne({ username: username });
-  console.log(admin);
-
-  res.json({ saveFlag });
+  let cipher = admin.password;
+  let pwd = decryptData(cipher);
+  res.send(pwd);
 };
 
 // Login Controller
@@ -126,14 +114,8 @@ let loginCtrl = async (req, res, next) => {
     errorCode = [];
 
   if (userObj != null) {
-    // decrypted = decryptData(userObj.pwdObj);
-    let { cipherBase64, key, encryptionIV } = encryptData(password);
-    let { pwdObj } = userObj;
-    if (
-      cipherBase64 == pwdObj.cipher &&
-      key == pwdObj.key &&
-      encryptionIV == pwdObj.iv
-    ) {
+    let cipherBase64 = encryptData(password);
+    if (cipherBase64 == userObj.password) {
       authFlag = true;
       errorCode = [];
     } else {
@@ -158,11 +140,10 @@ let regCtrl = async (req, res, next) => {
   try {
     if (userFind == null) {
       if (password == cpassword) {
-        // let regHash = await encryptHash(password);
-        let { cipherBase64, key, encryptionIV } = encryptData(password);
+        let cipherBase64 = encryptData(password);
         let um = new userRegModel({
           username: username,
-          pwdObj: { cipher: cipherBase64, key: key, iv: encryptionIV },
+          password: cipherBase64,
           role: 1,
         });
         await um.save();
