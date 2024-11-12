@@ -350,15 +350,36 @@ let fetchActUser = async () => {
 
   document.getElementsByName("pusername")[0].value = data.username;
   document.getElementsByName("puserpwd")[0].value = resData;
+  document.getElementById("uname").innerText = data.username;
 };
 
 if (window.location.pathname.includes("AdminPanel.html")) {
-  document.getElementById("userDrop").addEventListener("click", handleUserDD);
-  window.onload = () => {
-    makeTable();
-    fetchActUser();
-  };
+  let activeuser = JSON.parse(localStorage.getItem("activeuser"));
+  console.log(activeuser);
+  console.log(activeuser.expires - Date.now());
+
+  if (activeuser != null) {
+    window.onload = () => {
+      if (activeuser.expires > Date.now()) {
+        document
+          .getElementById("userDrop")
+          .addEventListener("click", handleUserDD);
+        makeTable();
+        fetchActUser();
+      } else {
+        window.location.href = "./AdminLogin.html";
+        localStorage.removeItem("activeuser");
+      }
+    };
+    console.log("yp it is working.");
+  } else {
+    window.location.href = "./Admin/AdminLogin.html";
+  }
 }
+
+let signOut = () => {
+  localStorage.removeItem("activeuser");
+};
 
 //Model Close Button
 
