@@ -140,29 +140,29 @@ counterNum.forEach((curElem) => {
 });
 
 //Handle Contact Submit Form
-let contactUs = document.getElementById("contactUsForm");
+// let contactUs = document.getElementById("contactUsForm");
 
-let data = {};
-let handleSubmit = async (event) => {
-  event.preventDefault();
-  let uemail = event.target[1].value.split("@");
-  let femail = `${uemail[0]} @${uemail[1]}`;
-  data = {
-    createdat: Date.now(),
-    username: event.target[0].value,
-    email: femail,
-    subject: event.target[2].value,
-    textarea: event.target[3].value,
-  };
-  try {
-    await fetch("http://localhost:8000", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    console.log("Data Sent Successfully.");
-    contactUs.reset();
-  } catch (error) {
-    console.log(error);
-  }
-};
+// let data = {};
+// let handleSubmit = async (event) => {
+//   event.preventDefault();
+//   let uemail = event.target[1].value.split("@");
+//   let femail = `${uemail[0]} @${uemail[1]}`;
+//   data = {
+//     createdat: Date.now(),
+//     username: event.target[0].value,
+//     email: femail,
+//     subject: event.target[2].value,
+//     textarea: event.target[3].value,
+//   };
+//   try {
+//     await fetch("http://localhost:8000", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(data),
+//     });
+//     console.log("Data Sent Successfully.");
+//     contactUs.reset();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
